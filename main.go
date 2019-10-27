@@ -2,40 +2,28 @@ package main
 
 import (
 	"fmt"
+	"github.com/tendermint/tendermint/libs/cli"
 	"reflect"
 
 	//"strings"
 
-	"github.com/cosmos/cosmos-sdk/server"
 	amino "github.com/tendermint/go-amino"
 
 	"github.com/spf13/cobra"
-	"github.com/tendermint/tendermint/libs/cli"
 	typescriptify "github.com/tkrajina/typescriptify-golang-structs/typescriptify"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	app "github.com/cosmos/typegen/app"
+	app "github.com/cosmos/typegen/starter"
 )
 
 func main() {
 	cobra.EnableCommandSorting = false
 
-	cdc := app.Cdc
-
-	config := sdk.GetConfig()
-	config.SetBech32PrefixForAccount(sdk.Bech32PrefixAccAddr, sdk.Bech32PrefixAccPub)
-	config.SetBech32PrefixForValidator(sdk.Bech32PrefixValAddr, sdk.Bech32PrefixValPub)
-	config.SetBech32PrefixForConsensusNode(sdk.Bech32PrefixConsAddr, sdk.Bech32PrefixConsPub)
-	config.Seal()
-
-	ctx := server.NewDefaultContext()
+	cdc := app.MakeCodec()
 
 	rootCmd := &cobra.Command{
-		Use:               "nsd",
-		Short:             "nameservice App Daemon (server)",
-		PersistentPreRunE: server.PersistentPreRunEFn(ctx),
+		Use:   "typegen",
+		Short: "type generator amino to typescript",
 	}
-	// CLI commands to initialize the chain
 	rootCmd.AddCommand(
 		dumpSchema(cdc),
 	)
