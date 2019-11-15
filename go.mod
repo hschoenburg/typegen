@@ -18,3 +18,5 @@ require (
 )
 
 replace github.com/tendermint/go-amino => github.com/tendermint/go-amino v0.15.1-0.20191003185523-ddfc7fca5e86
+
+replace github.com/tkrajina/typescriptify-golang-structs v0.0.9 => github.com/hschoenburg/typescriptify-golang-structs v0.0.10-0.20191010235356-1921efa0ecc9
